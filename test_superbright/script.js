@@ -71,6 +71,7 @@ function init() {
             addCurve();
         }
     }
+
     cameraButton.onclick = function () {
         cameraMoveFlag = true;
         tweenCamera();
@@ -88,7 +89,6 @@ function addLights() {
     light.shadow.mapSize.width = 2124;
     light.shadow.mapSize.height = 2124;
     scene.add(light);
-
 }
 
 function addFloor() {
@@ -147,10 +147,10 @@ function addCurve() {
     if (dataSettings.Shape == 'tube') {
         scene.add(tubeMesh);
     }
-
 }
 
 function tweenCamera() {
+
     let temp = TWEEN.Easing.Sinusoidal.Out;
     switch (dataSettings.temp) {
         case 0:
@@ -165,7 +165,7 @@ function tweenCamera() {
     }
 
     var values = { t: 0 };
-    var target = { t: 0.98 };
+    var target = { t: 1 };
     var tween = new TWEEN.Tween(values).to(target, dataSettings.delay);
     tween.easing(temp)
     tween.onUpdate(function () {
@@ -174,9 +174,9 @@ function tweenCamera() {
         position.multiplyScalar(1);
 
         movingCamera.position.copy(position);
-        dataSettings.Shape == 'line' ? movingCamera.position.y += 0.03 : movingCamera.position.y += 0.07;
+        dataSettings.Shape == 'line' ? movingCamera.position.y += 0.03 : movingCamera.position.y += 0.08;
 
-        var lookAt = tubeGeometry.parameters.path.getPointAt((values.t + 0.1 / tubeGeometry.parameters.path.getLength()) % 1).multiplyScalar(1);
+        var lookAt = tubeGeometry.parameters.path.getPointAt((values.t + 0.3 / tubeGeometry.parameters.path.getLength())).multiplyScalar(1.0);
 
         movingCamera.matrix.lookAt(movingCamera.position, lookAt, new THREE.Vector3(0, 1, 0));
         movingCamera.quaternion.setFromRotationMatrix(movingCamera.matrix);
@@ -189,12 +189,9 @@ function tweenCamera() {
 }
 
 function animate() {
-
     TWEEN.update();
-
     requestAnimationFrame(animate);
     render();
-
 }
 
 function render() {
