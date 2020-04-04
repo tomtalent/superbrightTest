@@ -100,7 +100,7 @@ function addFloor() {
     plane.position.y = - 4;
     plane.receiveShadow = true;
     scene.add(plane);
-    var helper = new THREE.GridHelper(2000, 100);
+    var helper = new THREE.GridHelper(2000, 1000);
     helper.position.y = - 3;
     helper.material.opacity = 0.25;
     helper.material.transparent = true;
@@ -165,7 +165,7 @@ function tweenCamera() {
     }
 
     var values = { t: 0 };
-    var target = { t: 0.99 };
+    var target = { t: 0.98 };
     var tween = new TWEEN.Tween(values).to(target, dataSettings.delay);
     tween.easing(temp)
     tween.onUpdate(function () {
@@ -173,30 +173,8 @@ function tweenCamera() {
         var position = tubeGeometry.parameters.path.getPointAt(values.t);
         position.multiplyScalar(1);
 
-        // interpolation
-
-        var segments = tubeGeometry.tangents.length;
-
-        var pickt = values.t * segments;
-        var pick = Math.floor(pickt);
-        var pickNext = (pick + 1) % segments;
-
-        if (pick < segments - 1) {
-            binormal.subVectors(tubeGeometry.binormals[pickNext], tubeGeometry.binormals[pick]);
-            binormal.multiplyScalar(pickt - pick).add(tubeGeometry.binormals[pick]);
-        }
-
-        var dir = tubeGeometry.parameters.path.getTangentAt(values.t);
-
-        var offset;
-        dataSettings.Shape == 'line' ? offset = 0.01 : offset = 0.05;
-
-        normal.copy(binormal).cross(dir);
-
-        position.add(normal.clone().multiplyScalar(offset));
-
         movingCamera.position.copy(position);
-        movingCamera.position.y += 0.1;
+        dataSettings.Shape == 'line' ? movingCamera.position.y += 0.03 : movingCamera.position.y += 0.07;
 
         var lookAt = tubeGeometry.parameters.path.getPointAt((values.t + 0.1 / tubeGeometry.parameters.path.getLength()) % 1).multiplyScalar(1);
 
