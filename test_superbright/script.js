@@ -174,9 +174,9 @@ function tweenCamera() {
         position.multiplyScalar(1);
 
         movingCamera.position.copy(position);
-        dataSettings.Shape == 'line' ? movingCamera.position.y += 0.03 : movingCamera.position.y += 0.08;
+        dataSettings.Shape == 'line' ? movingCamera.position.y += dataSettings.shpereRadius * 0.5 : movingCamera.position.y += dataSettings.shpereRadius * 1.3;
 
-        var lookAt = tubeGeometry.parameters.path.getPointAt((values.t + 0.3 / tubeGeometry.parameters.path.getLength())).multiplyScalar(1.0);
+        var lookAt = tubeGeometry.parameters.path.getPointAt(values.t + 0.3 / tubeGeometry.parameters.path.getLength()).multiplyScalar(1.0);
 
         movingCamera.matrix.lookAt(movingCamera.position, lookAt, new THREE.Vector3(0, 1, 0));
         movingCamera.quaternion.setFromRotationMatrix(movingCamera.matrix);
