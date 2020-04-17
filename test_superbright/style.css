@@ -27,20 +27,21 @@ html {
     box-sizing: border-box;
 }
 
-.btn_run{
-    font-size: 60px;
+.btn_run {
+    font-size: 30px;
     position: absolute;
-    margin: 100px;
-    width: 400px;
-    height: 150px;
+    margin: 20px;
+    width: 150px;
+    height: 50px;
     padding: 10px;
 }
-.btn_camera{
-    font-size: 60px;
+
+.btn_camera {
+    font-size: 30px;
     position: absolute;
-    margin: 100px;
-    margin-left: 600px;
-    width: 400px;
-    height: 150px;
+    margin: 20px;
+    margin-left: 200px;
+    width: 150px;
+    height: 50px;
     padding: 10px;
 }
